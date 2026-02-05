@@ -9,7 +9,7 @@ caporiga db 13,10,'$'
 
 .code
 LEGGINUM macro num
-        mov dl, 01h
+        mov ah, 01h
         int 21h
         mov num, al
 
@@ -40,4 +40,5 @@ endm
 
 
 end
+
 
