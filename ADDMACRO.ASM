@@ -23,19 +23,21 @@ STAMPA macro ris
 endm
 
 
-        .startup
+.startup
         LEGGINUM num1
+        sub num1, '0'
+
         LEGGINUM num2
+        sub num2, '0'
 
         mov al, num1
         add al, num2
-        int 21h
+        add al, '0'
 
         STAMPA al
-
-
 
         .exit
 
 
 end
+
