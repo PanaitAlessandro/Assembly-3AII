@@ -55,11 +55,6 @@ endm
         
         add al, lo
         add al, b
-        
-
-        mov ah, 02h
-        mov dl, al
-        int 21h
 
         SCRIVI msg3
         SCRIVIC al
@@ -75,3 +70,4 @@ endm
         SCRIVI caporiga
         .exit
 end
+
