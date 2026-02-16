@@ -3,9 +3,10 @@
 
 .data
 msg db "Inserisci un numero (0-9): $"
-pariMsg db "Il numero è PARI$"
-dispariMsg db "Il numero è DISPARI$"
+pariMsg db "Il numero e' PARI$"
+dispariMsg db "Il numero e' DISPARI$"
 num db ?
+caporiga db 13,10, '$'
 
 .code
 .startup
@@ -21,6 +22,10 @@ num db ?
 
     sub al, '0'       ; converte da ASCII a numero
     mov num, al       ; salva nella variabile
+
+    lea dx, caporiga
+    mov ah, 09h
+    int 21h
 
     ; controlla se pari o dispari
     mov al, num
