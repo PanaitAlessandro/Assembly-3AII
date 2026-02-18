@@ -7,7 +7,7 @@ msg2 db "Inserisci secondo numero: $"
 num1 db ?
 num2 db ?
 caporiga db 13,10,'$'
-msg db "La moltiplicazione è: "
+msg db "La moltiplicazione è: $"
 .code
 
 STAMPA macro str
@@ -27,12 +27,12 @@ endm
   .startup
 
   STAMPA msg1
-  STAMPA caporiga
   LEGGI num1
+  STAMPA caporiga
 
   STAMPA msg2
-  STAMPA caporiga
   LEGGI num2
+  STAMPA caporiga
 
   mov al, num1
   mul num2
