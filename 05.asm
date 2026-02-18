@@ -18,9 +18,12 @@ STAMPA macro str
 endm
 
 LEGGI macro num
+LEGGI_DI_NUOVO:
     mov ah, 01h
     int 21h
-    sub al, '0'        ; ASCII -> numero
+    cmp al, 13        ; ignora ENTER
+    je LEGGI_DI_NUOVO
+    sub al, '0'
     mov num, al
 endm
 
@@ -34,20 +37,14 @@ endm
     LEGGI num2
     STAMPA caporiga
 
-    ; -------------------------
-    ; moltiplicazione
-    ; -------------------------
     mov al, num1
-    mul num2           ; AX = risultato
+    mul num2          ; AX = risultato
 
-    ; preparazione divisione per 10
-    mov ah, 0          ; <<< invece di XOR
     mov bl, 10
-    div bl             ; AL=decine AH=unità
+    div bl            ; AL=decine AH=unità
 
     STAMPA msg
 
-    ; stampa decine solo se != 0
     cmp al, 0
     je SOLO_UNITA
 
