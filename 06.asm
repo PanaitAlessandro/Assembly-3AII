@@ -13,7 +13,7 @@ caporiga db 13,10,'$"
 .code
 
 STAMPA macro str
-  lea dx, msg
+  lea dx, str
   mov ah, 09h 
   int 21h
 endm
