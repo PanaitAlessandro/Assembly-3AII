@@ -32,8 +32,8 @@ endm
 
 STAMPAN macro val
   mov ah, 02h
-  int 21h
   add al, '0'
+  int 21h
 endm
 
   .startup
