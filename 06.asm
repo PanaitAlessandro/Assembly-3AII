@@ -42,6 +42,8 @@ jmp FINE
 PRIM:
 STAMPA primo
 FINE:
+    mov ah, 4Ch
+    int 21h
 
 .exit
 end
