@@ -3,11 +3,20 @@
 
 .data
 msg db "Benvenuto in questo esercizio SUEZ $"
+caporiga db 13,10,'$'
 msgs db "suez$"
 
 
 .code
   .startup
+
+  lea dx, msg
+  mov ah, 09h
+  int 21h
+
+  lea dx, caporiga
+  mov ah, 09h
+  int 21h
 
   lea si, msgs
 
@@ -22,7 +31,7 @@ msgs db "suez$"
 
   prepara_while:
   dec si
-  lea bx, stringa
+  lea bx, msgs
 
 
   while_cazzuto:
