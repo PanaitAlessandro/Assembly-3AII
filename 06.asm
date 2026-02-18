@@ -8,7 +8,7 @@ num1 db ?
 num2 db ?
 primo db "il primo è maggiore $"
 secondo db "il secondo è maggiore $"
-caporiga db 13,10,'$"
+caporiga db 13,10,'$'
 
 .code
 
@@ -19,31 +19,29 @@ STAMPA macro str
 endm
 
 LEGGI macro num
-    mov ah, 01h
-    int 21h         ; legge carattere in AL
-    sub al, '0'     ; converte da ASCII a numero
-    mov num, al     ; salva il numero in variabile
+  mov ah, 01h
+  int 21h
+  sub al, '0'
+  mov num, al
 endm
 
-  .startup
+.startup
 
-  STAMPA msg1
-  LEGGI num1
-  STAMPA caporiga
+STAMPA msg1
+LEGGI num1
+STAMPA caporiga
 
-  STAMPA msg2
-  LEGGI num2
-  STAMPA caporiga
+STAMPA msg2
+LEGGI num2
+STAMPA caporiga
 
-  cmp num1, num2
-  jg PRIM
-  STAMPA secondo
-  jmp FINE
-
+cmp num1, num2
+jg PRIM
+STAMPA secondo
+jmp FINE
 PRIM:
-  STAMPA primo
-
+STAMPA primo
 FINE:
-.exit
 
+.exit
 end
