@@ -7,7 +7,7 @@ msg2 db "Inserisci secondo numero: $"
 num1 db ?
 num2 db ?
 caporiga db 13,10,'$'
-msg db "La moltiplicazione è: $"
+msg db "La moltiplicazione e': $"
 .code
 
 STAMPA macro str
@@ -37,11 +37,27 @@ endm
   mov al, num1
   mul num2
 
-  STAMPA msg
-    add al, '0'
-    mov dl, al
-    mov ah, 02h
-    int 21h
+  mov bl, 10
+  div bl
+
+STAMPA msg
+
+; stampa decine solo se != 0
+  cmp al, 0
+  je SOLO_UNITA
+
+  add al, '0'
+  mov dl, al
+  mov ah, 02h
+  int 21h
+
+SOLO_UNITA:
+  mov al, ah
+  add al, '0'
+  mov dl, al
+  mov ah, 02h
+  int 21h
+
   .exit
 
 end
