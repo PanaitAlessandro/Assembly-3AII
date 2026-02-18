@@ -40,7 +40,11 @@ NON_TROVATO:
     jmp WHILE
 
 FINE:
-    nop
+    mov al, num
+    add al, '0'      ; converti in ASCII
+    mov dl, al       ; DL = carattere da stampare
+    mov ah, 02h      ; funzione DOS: stampa DL
+    int 21h
 
 .exit
 end
