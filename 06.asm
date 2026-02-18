@@ -19,10 +19,10 @@ STAMPA macro str
 endm
 
 LEGGI macro num
-  mov ah, 01h
-  sub al, '0'
-  int 21h
-  mov al, num
+    mov ah, 01h
+    int 21h         ; legge carattere in AL
+    sub al, '0'     ; converte da ASCII a numero
+    mov num, al     ; salva il numero in variabile
 endm
 
   .startup
@@ -38,9 +38,12 @@ endm
   cmp num1, num2
   jg PRIM
   STAMPA secondo
+  jmp FINE
 
 PRIM:
   STAMPA primo
-  .exit
+
+FINE:
+.exit
 
 end
