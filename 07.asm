@@ -46,12 +46,15 @@ endm
 ; --- Input ---
 STAMPA msg1
 LEGGIN b
+STAMPA caporiga
 
 STAMPA msg2
 LEGGIN h
+STAMPA caporiga
 
 STAMPA msg3
 LEGGIN lo
+STAMPA caporiga
 
 ; --- Calcolo Area (b * h) ---
 mov al, b
