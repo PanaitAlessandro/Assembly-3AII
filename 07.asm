@@ -35,8 +35,20 @@ endm
 
 ; --- Macro per stampare un numero (converte NUM -> ASCII) ---
 STAMPAN macro val
-    mov dl, val   ; IL SEGRETO: l'interruzione 21h/02h vuole il dato in DL
-    add dl, '0'   ; Converte il numero (1) in carattere ('1' cioè 49)
+    mov al, val  ; IL SEGRETO: l'interruzione 21h/02h vuole il dato in DL
+    mov ah, 0
+    mov bl, 10
+    div bl 
+
+    mov bh, ah
+
+    mov dl, al
+    add dl, '0'
+    mov ah, 02h
+    int 21h
+
+    mov dl, bh
+    add dl, '0'
     mov ah, 02h
     int 21h
 endm
