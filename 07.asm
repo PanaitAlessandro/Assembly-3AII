@@ -2,81 +2,75 @@
 .stack 100h
 
 .data
-msg1 db "Inserisci base: $"
-msg2 db "Inserisci altezza: $"
-msg3 db "Inserisci lato obliquo: $"
+msg1 db "Base (0-4): $"          ; Usiamo numeri piccoli per non superare 9
+msg2 db "Altezza (0-2): $" 
+msg3 db "Lato obliquo (0-2): $"
 
-b db ?       ; base
-h db ?       ; altezza
-lo db ?      ; lato obliquo
+b db ?
+h db ?
+lo db ?
 area db ?
 perimetro db ?
 
-msgarea db "Area: $"
-msgperi db "Perimetro: $"
+msgarea db 13,10,"Area: $"
+msgperi db 13,10,"Perimetro: $"
 caporiga db 13,10,'$'
 
 .code
 
-; --- macro per stampare stringhe ---
+; --- Macro per stampare stringhe ---
 STAMPA macro msg
-  lea dx, msg
-  mov ah, 09h
-  int 21h
+    lea dx, msg
+    mov ah, 09h
+    int 21h
 endm
 
-; --- macro per leggere un numero singolo (0-9) ---
+; --- Macro per leggere un numero (converte ASCII -> NUM) ---
 LEGGIN macro num
-  mov ah, 01h
-  int 21h
-  sub al, '0'
-  mov num, al
+    mov ah, 01h
+    int 21h
+    sub al, '0'   ; Converte il carattere (es. '1' cioè 49) in numero (1)
+    mov num, al
 endm
 
-; --- macro per stampare un numero singolo (0-9) ---
+; --- Macro per stampare un numero (converte NUM -> ASCII) ---
 STAMPAN macro val
-  mov ah, 02h
-  add al, '0'
-  int 21h
+    mov dl, val   ; IL SEGRETO: l'interruzione 21h/02h vuole il dato in DL
+    add dl, '0'   ; Converte il numero (1) in carattere ('1' cioè 49)
+    mov ah, 02h
+    int 21h
 endm
 
 .startup
 
-; --- input base ---
+; --- Input ---
 STAMPA msg1
 LEGGIN b
-STAMPA caporiga
 
-; --- input altezza ---
 STAMPA msg2
 LEGGIN h
-STAMPA caporiga
 
-; --- input lato obliquo ---
 STAMPA msg3
 LEGGIN lo
-STAMPA caporiga
 
-; --- calcolo area (base * altezza) ---
+; --- Calcolo Area (b * h) ---
 mov al, b
-mul h          ; AL * h -> AX
-mov area, al
+mul h            ; AL * h -> Risultato in AX
+mov area, al     ; Salviamo solo la parte bassa (AL)
 
 STAMPA msgarea
-mov al, area
-STAMPAN al
-STAMPA caporiga
+STAMPAN area     ; Chiamiamo la macro corretta
 
-; --- calcolo perimetro (2*base + 2*lato obliquo) ---
+; --- Calcolo Perimetro (2*b + 2*lo) ---   
 mov al, b
-add al, b      ; AL = 2*base
+add al, b        ; 2 * base
 add al, lo
-add al, lo     ; AL = 2*base + 2*lo
+add al, lo        ; + 2 * lato obliquo
 mov perimetro, al
 
 STAMPA msgperi
-mov al, perimetro
-STAMPAN al
+STAMPAN perimetro
+
 STAMPA caporiga
 
 .exit
