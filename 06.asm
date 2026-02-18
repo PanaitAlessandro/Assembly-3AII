@@ -35,13 +35,12 @@ endm
   LEGGI num2
   STAMPA caporiga
 
-  mov bl, num1
-  cmp bl, num2
-  jg SECONDO
-  STAMPA primo
-
-SECONDO:
+  cmp num1, num2
+  jg PRIM
   STAMPA secondo
+
+PRIM:
+  STAMPA primo
   .exit
 
 end
